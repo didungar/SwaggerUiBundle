@@ -1,0 +1,19 @@
+{
+  "name": "DidUngar/SwaggerUiBundle",
+  "type": "library",
+  "description": "Exposes swagger UI inside your Symfony project through a route (eg. /docs)",
+  "keywords": [
+    "swagger", "php", "symfony", "swagger-ui", "api", "doc", "bundle"
+  ],
+  "homepage": "https://github.com/didungar/SwaggerUiBundle",
+  "license": "GPL-3.0",
+  "require": {
+    "php": ">=5.6",
+    "composer/composer": "^1.0",
+    "symfony/http-kernel": "~2.8|~3.0",
+    "symfony/framework-bundle": "~2.7|~3.0"
+  },
+  "autoload": {
+    "classmap": ["/"]
+  }
+}
