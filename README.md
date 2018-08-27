@@ -12,8 +12,7 @@ Install with composer in dev environment (recommended if you don't have private 
 
 `$ composer require DidUngar/SwaggerUiBundle --dev`
 
-Enable bundle in `app/AppKernel.php`:
-
+Enable bundle in `app/AppKernel.php` : SF < 4
 ```php
 <?php
 
@@ -31,7 +30,11 @@ class AppKernel extends Kernel
         // ...
     }
 }
+
+Add the bundle to config/bundles.php : SF >= 4
 ```
+DidUngar\SwaggerUiBundle\DidUngarSwaggerUiBundle::class => ['dev' => true],
+``````
 
 Add the route where swagger-ui will be available in `routing_dev.yml`:
 
