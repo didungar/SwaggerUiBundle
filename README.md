@@ -30,15 +30,15 @@ class AppKernel extends Kernel
         // ...
     }
 }
-
-Add the bundle to config/bundles.php : SF >= 4
 ```
-DidUngar\SwaggerUiBundle\DidUngarSwaggerUiBundle::class => ['dev' => true],
-``````
+Add the bundle to config/bundles.php : SF >= 4
+```php
+DidUngar\SwaggerUiBundle\DidUngarSwaggerUiBundle::class => ['all' => true],
+```
 
 Add the route where swagger-ui will be available in `routing_dev.yml`:
 
-```yml
+```yaml
 didungar_swaggerui:
     resource: "@DidUngarSwaggerUiBundle/Controller/"
     type:     annotation
@@ -54,4 +54,18 @@ Under `files` you specify which swagger.json should be exposed.
 ```yaml
 parameters:
     didungar_swaggerui.swagger_json: "/swagger.json"
+```
+Pour avoir les routes de bases ajouter dans config/routes.yml (sf >= 4) :
+```yaml
+app_annotations:
+  resource: '../vendor/DidUngar/SwaggerUiBundle/Controller/'
+  type:     annotation
+```
+
+Ajouter dans config packages twig
+```yaml
+twig:
+    paths:
+        - '%kernel.project_dir%/templates'
+        - '%kernel.project_dir%/vendor/DidUngar/SwaggerUiBundle/Resources/views'
 ```

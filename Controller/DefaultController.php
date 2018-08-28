@@ -9,10 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/")
-	 * @Template()
+	 * @Route("/swaggerui", name="didungar_swaggerui")
+	 * @Template("Default/swaggerui.html.twig")
 	 */
-	public function indexAction()
+	public function swaggeruiAction()
 	{
 		return [
 			'swagger_json'=>$this->getParameter('didungar_swaggerui.swagger_json'),
