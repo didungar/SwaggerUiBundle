@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h3>Query - Api</h3>
+<form method="post" action="">
+	<h4>URL :</h4>
+	Serveur : <input type="text" name="server" value="{{ server }}" />
+	URI : <input type="text" name="uri" value="{{ uri }}" />
+	<h4>POST :</h4>
+	<ul id="call_parameters">
+		{% for key, value in aPost %}
+			<li>key : <input type="text" name="key[]" value="{{ key }}" placeholder="clef" /> value : <input type="text" name="value[]" value="{{ value }}" placeholder="valeur" /></li>
+		{% endfor %}
+		<li>key : <input type="text" name="key[]" value="" placeholder="clef" /> value : <input type="text" name="value[]" value="" placeholder="valeur" /></li>
+	</ul>
+
+	<h4>Send query :</h4>
+	<input type="submit" />
+</form>
+<h3>Retour :</h3>
+<h4>URL :</h4>
+<pre>{{ url }}</pre>
+<h4>Data :</h4>
+<ul>
+{% for key, value in aPost %}
+	<li>{{ key }} := {{ value }}</li>
+{% endfor %}
+</ul>
+<h4>Result :</h4>
+<pre>{{ result }}</pre>
+
+<h4>Form :</h4>
+<form method="post" target="_debug_api" action="{{ url }}">
+{% for key, value in aPost %}
+	<input type="hidden" name="{{ key }}" value="{{ value }}" />
+{% endfor %}
+<input type="submit" />
+</form>
+<ul id="api_paths">
+</ul>
+<script>
+	var swagger = null;
+	function apiPathsSelect(path) {
+	    var ul = '';
+        $.each(swagger.paths[path].post.parameters, function( index, value ) {
+			console.log( value );
+			ul += '<li>'+(value.name)+'<input name="'+(value.name)+'"';
+			if ( value.required )
+				ul += ' required="required"';
+            if ( value.type )
+                ul += ' type="'+value.type+'"';
+			ul += ' />';
+            if ( value.description )
+                ul += value.description;
+			ul += '</li>';
+        });
+        $('#call_parameters').html(ul);
+	}
+	$.ajax
+	({
+		type: "GET",
+		url: '/swagger.json',
+		success: function (ret){
+            swagger = JSON.parse(ret);
+            $.each(swagger.paths, function( index, value ) {
+                console.log( index );
+                console.log( value );
+                $('#api_paths').append('<li onclick="apiPathsSelect(\''+index+'\')">'+index+'</li>');
+            });
+		}
+	});
+</script>
+{% endblock %}
