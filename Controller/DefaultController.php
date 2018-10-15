@@ -22,11 +22,7 @@ class DefaultController extends Controller
 		if ( !empty($_POST) ) {
 			$server = \trim($_POST['server']);
 			$uri = \trim($_POST['uri']);
-			foreach($_POST['key'] as $i => $key) {
-				if ( empty($key) ) continue;
-				$value = $_POST['value'][$i];
-				$aPost[$key] = $value;
-			}
+			$aPost = $_POST['aPost'];
 			$postdata = \http_build_query(
 				$aPost
 			);
