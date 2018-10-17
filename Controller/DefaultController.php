@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/api", name="didungar_swaggerui_apiclient")
+	 * @Route("/swaggerui/api-client.html", name="didungar_swaggerui_apiclient")
 	 * @return Response
 	 */
 	public function apiClientAction()
@@ -22,18 +22,18 @@ class DefaultController extends Controller
 		if ( !empty($_POST) ) {
 			$server = \trim($_POST['server']);
 			$uri = \trim($_POST['uri']);
-			$aPost = $_POST['aPost'];
+			$aPost = empty($_POST['aPost'])?[]:$_POST['aPost'];
 			$postdata = \http_build_query(
 				$aPost
 			);
 
-			$opts = array('http' =>
-							  array(
-								  'method'  => 'POST',
-								  'header'  => 'Content-type: application/x-www-form-urlencoded',
-								  'content' => $postdata
-							  )
-			);
+			$opts = ['http' =>
+				[
+					'method'  => 'POST',
+					'header'  => 'Content-type: application/x-www-form-urlencoded',
+					'content' => $postdata
+				],
+			];
 
 			$context  = \stream_context_create($opts);
 
@@ -55,7 +55,7 @@ class DefaultController extends Controller
 	}
 
 	/**
-	 * @Route("/swaggerui", name="didungar_swaggerui")
+	 * @Route("/swaggerui.html", name="didungar_swaggerui")
 	 * @Template("Default/swaggerui.html.twig")
 	 */
 	public function swaggeruiAction()

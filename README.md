@@ -69,3 +69,8 @@ twig:
         - '%kernel.project_dir%/templates'
         - '%kernel.project_dir%/vendor/DidUngar/SwaggerUiBundle/Resources/views'
 ```
+
+Pour avoir le menu par default :
+```
+{% include 'Default/menu.html.twig' %}
+```
